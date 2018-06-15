@@ -1,0 +1,73 @@
+<div class="fade">
+  <h2 class="teal-text text-darken-3">Add a Recipe</h2>
+  <div class="row mb-5">
+    <div class="col s12">
+      <div class="row input-field col s12">
+        <input type="text" id="name" class="validate" name="name" [(ngModel)]="name" required>
+        <label for="name">Name</label>
+      </div>
+      <div class="row input-field col s12">
+        <input type="text" id="description" name="description" [(ngModel)]="description">
+        <label for="description">Description</label>
+      </div>
+      <div class="row input-field col s12">
+        <input type="text" id="image" name="image" [(ngModel)]="image">
+        <label for="image">Path to Image</label>
+      </div>
+      <div class="row input-field col s12">
+        <input type="text" id="url" name="url" [(ngModel)]="url">
+        <label for="url">Link to Website</label>
+      </div>
+      <div class="row input-field col m12 l6">
+        <input type="text" id="ingredient" [(ngModel)]="ingredient" (keydown.enter)="addIngredient()">
+        <label for="ingredient">Add Ingredient...</label>
+        <div *ngIf="ingredients.length" class="card">
+          <div class="card-content">
+            <ul *ngFor="let i of ingredients">
+              <li>
+                <div class="row">
+                  <div class="col s10">
+                    <span [class.hidden]="i.editMode" class="pointer" (click)="i.editMode = true">{{ i.description }}</span>
+                    <input type="text" #ingr [class.hidden]="!i.editMode" [value]="i.description" (keyup.enter)="i.editMode = false;i.description = ingr.value ? ingr.value : i.description">
+                  </div>
+                  <div class="col s2">
+                    <i class="material-icons x-small red-text pointer" (click)="deleteIngredient(i)">delete</i>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row input-field col m12 l6">
+        <input type="text" id="instruction" [(ngModel)]="instruction" (keydown.enter)="addInstruction()">
+        <label for="instruction">Add Instruction...</label>
+        <div *ngIf="instructions.length" class="card">
+          <div class="card-content">
+            <ul *ngFor="let i of instructions">
+              <li>
+                <div class="row">
+                  <div class="col s10">
+                    <span [class.hidden]="i.editMode" class="pointer" (click)="i.editMode = true">{{ i.description }}</span>
+                    <input type="text" #ingr [class.hidden]="!i.editMode" [value]="i.description" (keyup.enter)="i.editMode = false;i.description = ingr.value ? ingr.value : i.description">
+                  </div>
+                  <div class="col s2">
+                    <i class="material-icons x-small red-text pointer" (click)="deleteInstruction(i)">delete</i>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fixed-action-btn">
+      <a routerLink="/" class="btn-floating teal">
+        <i class="material-icons">chevron_left</i>
+      </a>
+    <a class="btn-floating teal" (click)="save()">
+      <i class="material-icons">save</i>
+    </a>
+  </div>
+</div>

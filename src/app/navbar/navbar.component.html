@@ -1,0 +1,37 @@
+<nav class="teal darken-2">
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo">My Recipes</a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+      <i class="material-icons">menu</i>
+    </a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <a routerLink="/home" routerLinkActive="active">Find a Recipe</a>
+      </li>
+      <li *ngIf="auth.isAuthenticated()">
+        <a routerLink="/recipe" routerLinkActive="active">Add a Recipe</a>
+      </li>
+      <li *ngIf="!auth.isAuthenticated()">
+        <a (click)="auth.login()">Login</a>
+      </li>
+      <li *ngIf="auth.isAuthenticated()">
+        <a (click)="auth.logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+  <li>
+    <a routerLink="/home" routerLinkActive="active">Find a Recipe</a>
+  </li>
+  <li *ngIf="auth.isAuthenticated()">
+    <a routerLink="/recipe" routerLinkActive="active">Add a Recipe</a>
+  </li>
+  <li class="pointer" *ngIf="!auth.isAuthenticated()">
+    <a (click)="auth.login()">Login</a>
+  </li>
+  <li class="pointer" *ngIf="auth.isAuthenticated()">
+    <a (click)="auth.logout()">Logout</a>
+  </li>
+</ul>

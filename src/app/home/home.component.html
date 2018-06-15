@@ -1,0 +1,36 @@
+<div class="fade">
+  <div *ngIf="loading">
+    <div class="loader">
+      <h3 class="teal-text text=darken-4">Welcome to My Recipes</h3>
+      <p>Looking for recipes...</p>
+      <div><app-spinner></app-spinner></div>
+    </div>    
+  </div>
+  <div class="banner" *ngIf="!recipes.length && !loading">
+    <div>
+      <h3 class="teal-text text=darken-4">Welcome to My Recipes</h3>
+      <p>There are currently no recipes in the system. To get started, please login and start adding recipes</p>
+    </div>
+  </div>
+  <div *ngIf="recipes.length" class="mb-5">
+    <div class="row">
+      <div *ngFor="let recipe of recipes" class="col s12 m6 l4">
+        <div class="card center-align fade b1 z-depth-5">
+          <a routerLink="/recipes/{{recipe.id}}">
+            <div class="card-image">
+              <img [src]="recipe.image === 'undefined' || !recipe.image ? 'assets/recipe.png' : recipe.image">
+            </div>
+          </a>
+          <div class="card-action teal-text darken-3">
+            <span>{{ recipe.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="auth.isAuthenticated()" class="fixed-action-btn">
+    <a routerLink="/recipe" class="btn-floating teal">
+      <i class="material-icons large">add</i>
+    </a>
+  </div>
+</div>

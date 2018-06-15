@@ -1,0 +1,76 @@
+<div class="fade">
+  <div *ngIf="recipe">
+    <h2 class="teal-text text-darken-3">Edit "{{ recipe.name }}"</h2>
+    <div class="row mb-5">
+      <div class="col s12">
+        <div class="row input-field col s12">
+          <input type="text" #thename id="name" class="validate" name="name" [value]="recipe.name" required>
+          <label [class.active]="recipe.name" for="name">Name</label>
+        </div>
+        <div class="row input-field col s12">
+          <input type="text" #thedesc id="description" name="description" [value]="recipe.description">
+          <label [class.active]="recipe.description" for="description">Description</label>
+        </div>
+        <div class="row input-field col s12">
+          <input type="text" #theimage id="image" name="image" [value]="recipe.image">
+          <label [class.active]="recipe.image" for="image">Path to Image</label>
+        </div>
+        <div class="row input-field col s12">
+          <input type="text" #theurl id="url" name="url" [value]="recipe.url">
+          <label [class.active]="recipe.url" for="url">Link to Website</label>
+        </div>
+        <div class="row input-field col s12 l6">
+          <input type="text" id="ingredient" [(ngModel)]="ingredient" (keydown.enter)="addIngredient()">
+          <label for="ingredient">Add Ingredient...</label>
+          <div *ngIf="recipe.Ingredients.length" class="card">
+            <div class="card-content">
+              <ul *ngFor="let i of recipe.Ingredients">
+                <li>
+                  <div class="row">
+                    <div class="col s10">
+                      <input type="text" #ingr [value]="i.description" (keyup.enter)="editIngredient(i.id, ingr.value)">
+                    </div>
+                    <div class="col s2">
+                      <i class="material-icons x-small red-text pointer" (click)="deleteIngredient(i)">delete</i>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row input-field col s12 l6">
+          <input type="text" id="instruction" [(ngModel)]="instruction" (keydown.enter)="addInstruction()">
+          <label for="instruction">Add Instruction...</label>
+          <div *ngIf="recipe.Instructions.length" class="card">
+            <div class="card-content">
+              <ul *ngFor="let i of recipe.Instructions">
+                <li>
+                  <div class="row">
+                    <div class="col s10">
+                      <input type="text" #inst [value]="i.description" (keyup.enter)="editInstruction(i.id, inst.value)">
+                    </div>
+                    <div class="col s2">
+                      <i class="material-icons x-small red-text pointer" (click)="deleteInstruction(i)">delete</i>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fixed-action-btn">
+      <a routerLink="/recipes/{{recipe.id}}" class="btn-floating teal">
+        <i class="material-icons">chevron_left</i>
+      </a>
+      <a class="btn-floating teal" (click)="save(thename.value, thedesc.value, theimage.value, theurl.value)">
+        <i class="material-icons">save</i>
+      </a>
+      <a class="btn-floating red" (click)="delete()">
+        <i class="material-icons">delete</i>
+      </a>
+    </div>
+  </div>
+</div>

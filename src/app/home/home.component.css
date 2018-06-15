@@ -1,0 +1,37 @@
+.card-content {
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+.card {
+  height: 350px;
+  max-width: 250px;
+  margin: 10px auto 20px auto;
+}
+
+.card-action {
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.banner {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner p {
+  font-size: 1.5em;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loader p {
+  font-size: 2em;
+}
