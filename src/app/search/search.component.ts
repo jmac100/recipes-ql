@@ -52,6 +52,7 @@ export class SearchComponent implements OnInit {
 
     if (this.cachedResults[cacheIndex]) {
       this.results = this.cachedResults[cacheIndex]
+      this.searching = false
       // console.log('serving from cache')
     } else {
     this.service.search(this.description, this.ingredients.split(','), this.page)
