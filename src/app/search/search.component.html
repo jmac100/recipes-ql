@@ -1,0 +1,54 @@
+<div class="fade">
+  <h3>Search for a Recipe <div class="flow-text">(Powered by Recipe Puppy)</div></h3>
+  <div class="row">
+    <div class="col s12 input-field">
+      <input id="description" type="text" [(ngModel)]="description" class="validate" (keyup.enter)="search()">
+      <label for="description">Description</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 input-field">
+      <input id="ingredients" type="text" [(ngModel)]="ingredients" class="validate" (keyup.enter)="search()">
+      <label for="ingredients">Ingredients (seperated by commas)</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <a (click)="search()" class="waves-effect waves-light btn">
+        <i class="material-icons left">search</i>Search</a>
+    </div>
+  </div>
+  <div *ngIf="searching" class="row center">
+    <app-spinner></app-spinner>
+  </div>
+  <div id="scrollTarget"></div>
+  <div *ngIf="results" id="results" class="mt-5 mb-5">
+    <ul class="collection">
+      <li *ngFor="let result of results.results" class="collection-item fade">
+        <div class="row">
+          <div class="col m2 hide-on-small-only">
+            <a [href]="result.href" target="_blank">
+              <img [src]="result.thumbnail === 'undefined' || !result.thumbnail ? 'assets/recipe.png' : result.thumbnail">
+            </a>
+          </div>
+          <div class="col m9">
+            <a [href]="result.href" target="_blank">
+              <span class="title teal-text darken-3">{{ result.title }}</span>
+            </a>
+            <p><span class="lead">Ingredients:</span> {{ result.ingredients }}</p>
+          </div>
+          <div *ngIf="auth.isAuthenticated()" class="col m1 right">
+            <a class="btn-floating btn-small waves-effect waves-light teal"><i class="material-icons" (click)="addRecipe(result)">add</i></a>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="center">
+      <a *ngIf="page > 1" (click)="previous()" class="waves-effect waves-light btn">
+        <i class="material-icons">navigate_before</i></a>
+      <a *ngIf="nextPage" (click)="next()" class="waves-effect waves-light btn">
+        <i class="material-icons">navigate_next</i>
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Apollo } from "apollo-angular";
-import { Observable } from "rxjs/Observable";
-import { map } from "rxjs/operators";
 
-import { Recipe, Query, Mutation } from "../type";
+import { Query, Mutation } from "../type";
 import { addRecipeMutation, addIngredientMutation, addInstructionMutation } from '../mutations';
 import { recipesQuery, recipeByName } from '../queries';
 
@@ -73,7 +71,7 @@ export class AddComponent implements OnInit {
       variables: {
         name: this.name,
         description: this.description,
-        iamge: this.image,
+        image: this.image,
         url: this.url
       },
       refetchQueries: [{

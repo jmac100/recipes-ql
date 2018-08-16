@@ -6,7 +6,10 @@
     </a>
     <ul class="right hide-on-med-and-down">
       <li>
-        <a routerLink="/home" routerLinkActive="active">Find a Recipe</a>
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+      </li>
+      <li>
+        <a routerLink="/search" routerLinkActive="active">Search for a Recipe</a>
       </li>
       <li *ngIf="auth.isAuthenticated()">
         <a routerLink="/recipe" routerLinkActive="active">Add a Recipe</a>
@@ -23,7 +26,10 @@
 
 <ul class="sidenav" id="mobile-demo">
   <li>
-    <a routerLink="/home" routerLinkActive="active">Find a Recipe</a>
+    <a routerLink="/home" routerLinkActive="active">Home</a>
+  </li>
+  <li>
+    <a routerLink="/search" routerLinkActive="active">Search for a Recipe</a>
   </li>
   <li *ngIf="auth.isAuthenticated()">
     <a routerLink="/recipe" routerLinkActive="active">Add a Recipe</a>

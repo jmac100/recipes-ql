@@ -6,6 +6,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { ApolloModule, Apollo } from "apollo-angular";
 import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { NgxPageScrollModule } from "ngx-page-scroll";
 
 import { environment } from "../environments/environment";
 
@@ -20,6 +21,8 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { EditComponent } from './edit/edit.component';
 import { CallbackComponent } from './callback/callback.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { SearchComponent } from './search/search.component';
+import { AppService } from './app.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     RecipeComponent,
     EditComponent,
     CallbackComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +42,11 @@ import { SpinnerComponent } from './spinner/spinner.component';
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
+    NgxPageScrollModule,
     RouterModule.forRoot([
       { path: 'callback', component: CallbackComponent },
       { path: 'home', component: HomeComponent },
+      { path: 'search', component: SearchComponent },
       { path: 'recipe', component: AddComponent, canActivate: [AuthGuard] },
       { path: 'recipe/:id', component: EditComponent, canActivate: [AuthGuard] },
       { path: 'recipes/:id', component: RecipeComponent },
@@ -48,6 +54,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     ])
   ],
   providers: [
+    AppService,
     AuthService,
     AuthGuard
   ],

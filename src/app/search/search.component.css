@@ -1,0 +1,29 @@
+.right {
+  margin: 0 auto 5em auto;
+}
+
+.center {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.collection-item img {
+  width: 107px;
+  height: auto;
+  padding: .5em;
+}
+
+.title {
+  font-size: 2em;
+}
+
+.lead {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.flow-text {
+  font-size: .5em;
+  font-style: italic;
+  font-weight: 200;
+}
