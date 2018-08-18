@@ -22,7 +22,10 @@
     <app-spinner></app-spinner>
   </div>
   <div id="scrollTarget"></div>
-  <div *ngIf="results" id="results" class="mt-5 mb-5">
+  <div *ngIf="noResultsFound" class="mt-5 mb-5 fade">
+    <h4 class="teal-text darken-3 center">There is nothing to see here...</h4>
+  </div>
+  <div *ngIf="results?.results.length" id="results" class="mt-5 mb-5">
     <ul class="collection">
       <li *ngFor="let result of results.results" class="collection-item fade">
         <div class="row">

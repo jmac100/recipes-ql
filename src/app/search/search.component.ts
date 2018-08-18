@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT} from '@angular/common';
 import { AppService } from "../app.service";
-import { PageScrollService, PageScrollInstance } from 'ngx-page-scroll';
+import { PageScrollConfig, PageScrollService, PageScrollInstance } from 'ngx-page-scroll';
 import { Apollo } from "apollo-angular";
 import { AuthService } from "../auth.service";
 import { toast } from "../../mat";
@@ -26,6 +26,7 @@ export class SearchComponent implements OnInit {
   page: number = 1
   cachedResults: string[] = []
   cachedSearhTerm: string
+  noResultsFound: boolean = false
 
   constructor(
     private apollo: Apollo,
@@ -33,15 +34,18 @@ export class SearchComponent implements OnInit {
     public auth: AuthService,
     private pageScrollService: PageScrollService, 
     @Inject(DOCUMENT) private document: any
-  ) { }
+  ) { 
+    PageScrollConfig.defaultDuration = 500
+  }
 
   ngOnInit() {
   }
 
   search() {
     if (!this.description && !this.ingredients) return
-    
+
     this.searching = true
+    this.noResultsFound = false
     const searchTerm = `${this.description}${this.ingredients}`
     const cacheIndex = `${searchTerm}${this.page}`
 
@@ -60,6 +64,7 @@ export class SearchComponent implements OnInit {
         this.scrollToTop()
         this.results = this.cachedResults[cacheIndex] = data
         this.searching = false
+        this.noResultsFound = !this.results.results.length
         // console.log('results', this.page, this.results);
         this.prefetchNextResults()
       })
@@ -93,6 +98,7 @@ export class SearchComponent implements OnInit {
     const cacheIndex = `${this.cachedSearhTerm}${this.page}`
     if (this.cachedResults[cacheIndex]) {
       this.results = this.cachedResults[cacheIndex]
+      this.prefetchNextResults()
       // console.log('serving next from cache')
     } else {
       this.cachedResults[cacheIndex] = this.nextPage
