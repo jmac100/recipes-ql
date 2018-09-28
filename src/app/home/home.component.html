@@ -1,10 +1,12 @@
 <div class="fade">
   <div *ngIf="loading">
     <div class="loader">
-      <h3 class="teal-text text=darken-4">Welcome to My Recipes</h3>
+      <h3 class="teal-text text=darken-4 center">Welcome to My Recipes</h3>
       <p>Looking for recipes...</p>
-      <div><app-spinner></app-spinner></div>
-    </div>    
+      <div>
+        <app-spinner></app-spinner>
+      </div>
+    </div>
   </div>
   <div class="banner" *ngIf="!recipes.length && !loading">
     <div>
