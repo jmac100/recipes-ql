@@ -4,6 +4,8 @@ import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
 import { environment } from "../environments/environment";
 
+(window as any).global = window;
+
 @Injectable()
 export class AuthService {
 
