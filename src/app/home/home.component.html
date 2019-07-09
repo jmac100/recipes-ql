@@ -38,7 +38,7 @@
     <div class="row">
       <div *ngFor="let recipe of filtered" class="col s12 m6 l4">
         <div class="card center-align fade b1 z-depth-5">
-          <a routerLink="/recipes/{{ recipe.id }}">
+          <a routerLink="/recipes/{{ recipe.id }}" (click)="setBookmark(recipe.id)" [id]="recipe.id">
             <div class="card-image">
               <img
                 [src]="

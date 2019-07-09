@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Inject } from '@angular/core'
+import { DOCUMENT } from "@angular/platform-browser";
 import { Apollo } from 'apollo-angular'
 import { map } from 'rxjs/operators'
+import { PageScrollService, PageScrollInstance } from 'ngx-page-scroll'
 import { AuthService } from '../auth.service'
 
 import { Recipe, Query } from '../type'
@@ -17,7 +19,12 @@ export class HomeComponent implements OnInit {
   loading: boolean = true
   filter: string = localStorage['recipe_filter'] || ''
 
-  constructor(private apollo: Apollo, public auth: AuthService) {}
+  constructor(
+    private apollo: Apollo,
+    public auth: AuthService,
+    private pageScrollService: PageScrollService,
+    @Inject(DOCUMENT) private document: any
+  ) {}
 
   ngOnInit() {
     this.apollo
@@ -30,6 +37,14 @@ export class HomeComponent implements OnInit {
         this.filterList()
         this.loading = false
       })
+
+    setTimeout(() => {
+      if (localStorage.getItem('recipe-bookmark')) {
+        let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this.document, '#' + localStorage.getItem('recipe-bookmark'));
+        this.pageScrollService.start(pageScrollInstance);
+        localStorage.removeItem('recipe-bookmark')
+      }
+    }, 500);
   }
 
   filterList() {
@@ -41,5 +56,9 @@ export class HomeComponent implements OnInit {
         )
       : this.recipes
     localStorage.setItem('recipe_filter', this.filter)
+  }
+
+  setBookmark(id) {
+    localStorage.setItem('recipe-bookmark', id)
   }
 }
