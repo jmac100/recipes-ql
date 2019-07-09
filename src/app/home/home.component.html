@@ -1,7 +1,7 @@
 <div class="fade">
   <div *ngIf="loading">
     <div class="loader">
-      <h3 class="teal-text text=darken-4 center">Welcome to My Recipes</h3>
+      <h3 class="teal-text text-darken-4 center">Welcome to My Recipes</h3>
       <p>Looking for recipes...</p>
       <div>
         <app-spinner></app-spinner>
@@ -11,16 +11,42 @@
   <div class="banner" *ngIf="!recipes.length && !loading">
     <div>
       <h3 class="teal-text text=darken-4">Welcome to My Recipes</h3>
-      <p>There are currently no recipes in the system. To get started, please login and start adding recipes</p>
+      <p>
+        There are currently no recipes in the system. To get started, please
+        login and start adding recipes
+      </p>
     </div>
   </div>
   <div *ngIf="recipes.length" class="mb-5">
     <div class="row">
-      <div *ngFor="let recipe of recipes" class="col s12 m6 l4">
+      <div class="col s12">
+        <div class="row">
+          <div class="input-field col s12 m8 offset-m2">
+            <i class="material-icons prefix">filter_list</i>
+            <input
+              type="text"
+              id="filter"
+              class="validate"
+              [(ngModel)]="filter"
+              (keyup)="filterList()"
+            />
+            <label for="filter" [class.active]="filter">Filter the List</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let recipe of filtered" class="col s12 m6 l4">
         <div class="card center-align fade b1 z-depth-5">
-          <a routerLink="/recipes/{{recipe.id}}">
+          <a routerLink="/recipes/{{ recipe.id }}">
             <div class="card-image">
-              <img [src]="recipe.image === 'undefined' || !recipe.image ? 'assets/recipe.png' : recipe.image">
+              <img
+                [src]="
+                  recipe.image === 'undefined' || !recipe.image
+                    ? 'assets/recipe.png'
+                    : recipe.image
+                "
+              />
             </div>
           </a>
           <div class="card-action teal-text darken-3">

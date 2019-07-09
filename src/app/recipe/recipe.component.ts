@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Apollo } from "apollo-angular";
-import { Observable } from "rxjs/Observable";
-import { map } from "rxjs/operators";
 import { AuthService } from "../auth.service";
 
 import { Recipe, Query } from '../type';

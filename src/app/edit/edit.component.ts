@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Apollo } from "apollo-angular";
-import { Observable } from "rxjs/Observable";
 import { map } from "rxjs/operators";
 
 import { Recipe, Query, Mutation, Ingredient, Instruction } from '../type';
 import { recipeQuery, recipesQuery } from "../queries";
 import {
   addIngredientMutation,
-  addRecipeMutation,
   addInstructionMutation,
   editIngredientMutation,
   editInstructionMutation,
