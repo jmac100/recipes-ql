@@ -15,6 +15,18 @@
           <input type="text" #theimage id="image" name="image" [value]="recipe.image">
           <label [class.active]="recipe.image" for="image">Path to Image</label>
         </div>
+        <div class="row file-field input-field col s12">
+          <div class="btn">
+            <span><i class="material-icons">image</i></span>
+            <input type="file" (change)="upload($event)" accept=".png,.jpg">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Upload your own image" [(ngModel)]="tempFileName">
+            <div *ngIf="uploadInProgress">
+              <progress max="100" [value]="(uploadProgress | async)"></progress>{{(uploadProgress | async )}}%
+            </div>
+          </div>
+        </div>
         <div class="row input-field col s12">
           <input type="text" #theurl id="url" name="url" [value]="recipe.url">
           <label [class.active]="recipe.url" for="url">Link to Website</label>

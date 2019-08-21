@@ -7,6 +7,9 @@ import { ApolloModule, Apollo } from "apollo-angular";
 import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { NgxPageScrollModule } from "ngx-page-scroll";
+import { AngularFireModule } from "@angular/fire"
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { environment } from "../environments/environment";
 
@@ -43,6 +46,14 @@ import { AppService } from './app.service';
     ApolloModule,
     HttpLinkModule,
     NgxPageScrollModule,
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyC7lzLS94lGyeaTeJ-QxKljiw8-jWy41Yc",
+      authDomain: "ng-sandbox-9cc5e.firebaseapp.com",
+      storageBucket: "ng-sandbox-9cc5e.appspot.com",
+      projectId: "ng-sandbox-9cc5e",
+    }),
+    AngularFireStorageModule,
+    AngularFirestoreModule,
     RouterModule.forRoot([
       { path: 'callback', component: CallbackComponent },
       { path: 'home', component: HomeComponent },

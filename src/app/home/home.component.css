@@ -14,6 +14,14 @@
   font-size: 1.2em;
 }
 
+.card-image {
+  width: 100%;
+}
+
+.card-image img {
+  width: 100%;
+}
+
 .banner {
   height: 50vh;
   display: flex;

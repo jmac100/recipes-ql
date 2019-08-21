@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Apollo } from "apollo-angular";
-import { map } from "rxjs/operators";
+import { map, finalize } from "rxjs/operators";
+import { Observable } from 'rxjs';
+import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from '@angular/fire/storage'
 
 import { Recipe, Query, Mutation, Ingredient, Instruction } from '../type';
 import { recipeQuery, recipesQuery } from "../queries";
@@ -29,11 +31,18 @@ export class EditComponent implements OnInit {
   recipe: Recipe
   ingredient: string
   instruction: string
+  uploadProgress: Observable<number>
+  task: AngularFireUploadTask
+  ref: AngularFireStorageReference
+  downloadURL: Observable<any>
+  uploadInProgress: boolean = false
+  tempFileName: string
 
   constructor(
     private apollo: Apollo,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private afStorage: AngularFireStorage
   ) { }
 
   ngOnInit() {
@@ -120,7 +129,7 @@ export class EditComponent implements OnInit {
     }).subscribe()
   }
 
-  save(name, description, image, url) {
+  save(name, description, image, url, navigate = true) {
     this.apollo.mutate<Mutation>({
       mutation: editRecipeMutation,
       variables: {
@@ -133,7 +142,7 @@ export class EditComponent implements OnInit {
       refetchQueries: [{
         query: recipesQuery
       }]
-    }).subscribe(() => this.router.navigate(['/recipes', this.recipe.id]))
+    }).subscribe(() => navigate && this.router.navigate(['/recipes', this.recipe.id]))
   }
 
   deleteIngredient(ingredient) {
@@ -214,5 +223,36 @@ export class EditComponent implements OnInit {
         query: recipesQuery
       }]
     }).subscribe(() => this.router.navigate(['/']))
+  }
+
+  async upload(event) {
+    if (!event.target.files.length) return
+
+    this.uploadInProgress = true
+    try {
+      if (this.recipe.image) {
+        await this.afStorage.storage.refFromURL(this.recipe.image).delete()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    const randomId = Math.random().toString(36).substring(2);
+    this.ref = this.afStorage.ref(randomId);
+    this.task = this.ref.put(event.target.files[0]);
+    this.uploadProgress = this.task.percentageChanges();
+
+    this.task.snapshotChanges().pipe(
+      finalize(() => {
+        this.downloadURL = this.ref.getDownloadURL()
+        this.downloadURL.subscribe(url => {
+          this.recipe.image = url
+          this.save(this.recipe.name, this.recipe.description, this.recipe.image, this.recipe.url, false)
+        })
+        this.tempFileName = ""
+        this.uploadInProgress = false
+      })
+    )
+      .subscribe();
   }
 }

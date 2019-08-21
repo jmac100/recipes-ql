@@ -5,3 +5,9 @@
 .hidden {
   display: none;
 }
+
+progress {
+  width: 90%;
+  height: 3px;
+  background-color: #00796b;
+}

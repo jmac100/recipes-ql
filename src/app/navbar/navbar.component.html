@@ -26,18 +26,18 @@
 
 <ul class="sidenav" id="mobile-demo">
   <li>
-    <a routerLink="/home" routerLinkActive="active">Home</a>
+    <a class="sidenav-close" routerLink="/home" routerLinkActive="active">Home</a>
   </li>
   <li>
-    <a routerLink="/search" routerLinkActive="active">Search for a Recipe</a>
+    <a class="sidenav-close" routerLink="/search" routerLinkActive="active">Search for a Recipe</a>
   </li>
   <li *ngIf="auth.isAuthenticated()">
-    <a routerLink="/recipe" routerLinkActive="active">Add a Recipe</a>
+    <a class="sidenav-close" routerLink="/recipe" routerLinkActive="active">Add a Recipe</a>
   </li>
   <li class="pointer" *ngIf="!auth.isAuthenticated()">
     <a (click)="auth.login()">Login</a>
   </li>
   <li class="pointer" *ngIf="auth.isAuthenticated()">
-    <a (click)="auth.logout()">Logout</a>
+    <a class="sidenav-close" (click)="auth.logout()">Logout</a>
   </li>
 </ul>
