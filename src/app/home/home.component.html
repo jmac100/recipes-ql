@@ -1,7 +1,6 @@
 <div class="fade">
   <div *ngIf="loading">
     <div class="loader">
-      <h3 class="teal-text text-darken-4 center">Welcome to My Recipes</h3>
       <p>Looking for recipes...</p>
       <div>
         <app-spinner></app-spinner>
@@ -17,7 +16,7 @@
       </p>
     </div>
   </div>
-  <div *ngIf="recipes.length" class="mb-5">
+  <div *ngIf="recipes.length && !loading" class="mb-5">
     <div class="row">
       <div class="col s12">
         <div class="row">
