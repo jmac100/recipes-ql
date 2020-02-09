@@ -51,8 +51,9 @@ export class HomeComponent implements OnInit {
     this.filtered = this.filter.length
       ? this.recipes.filter(
           r =>
-            r.name.toLowerCase().indexOf(this.filter) > -1 ||
-            r.description.indexOf(this.filter) > -1
+            r.name.toLowerCase().indexOf(this.filter.toLowerCase()) > -1 ||
+            r.description.toLowerCase().indexOf(this.filter.toLowerCase()) > -1 ||
+            r.Ingredients.find(i => i.description.toLowerCase().indexOf(this.filter.toLowerCase()) > -1)
         )
       : this.recipes
     localStorage.setItem('recipe_filter', this.filter)
