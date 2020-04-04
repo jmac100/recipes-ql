@@ -12,7 +12,7 @@ export class AppService {
     if (ingredients && ingredients.length) {
       ingredientList = ingredients.join(',')
     }
-    let url: any = `${environment.cors_proxy}${environment.search_api_url}?q=${description}&i=${ingredientList}&p=${page}`
+    let url: any = `${environment.search_api_url}?q=${description}&i=${ingredientList}&p=${page}`
     return this.http.get(url)
   }
 

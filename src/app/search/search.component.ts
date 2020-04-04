@@ -57,7 +57,6 @@ export class SearchComponent implements OnInit {
     if (this.cachedResults[cacheIndex]) {
       this.results = this.cachedResults[cacheIndex]
       this.searching = false
-      // console.log('serving from cache')
     } else {
     this.service.search(this.description, this.ingredients.split(','), this.page)
       .subscribe(data => {
@@ -65,7 +64,6 @@ export class SearchComponent implements OnInit {
         this.results = this.cachedResults[cacheIndex] = data
         this.searching = false
         this.noResultsFound = !this.results.results.length
-        // console.log('results', this.page, this.results);
         this.prefetchNextResults()
       })
     }
@@ -76,12 +74,10 @@ export class SearchComponent implements OnInit {
     const cacheIndex = `${this.cachedSearhTerm}${this.page + 1}`
     if (this.cachedResults[cacheIndex]) {
       this.nextPage = this.cachedResults[cacheIndex]
-      // console.log('serving prefetch from cache')
     } else {
       this.service.search(this.description, this.ingredients.split(','), this.page + 1)
       .subscribe(data => {
         this.nextPage = data
-        // console.log('nextPage', this.page + 1, this.nextPage)
       })
     }
   }
@@ -99,7 +95,6 @@ export class SearchComponent implements OnInit {
     if (this.cachedResults[cacheIndex]) {
       this.results = this.cachedResults[cacheIndex]
       this.prefetchNextResults()
-      // console.log('serving next from cache')
     } else {
       this.cachedResults[cacheIndex] = this.nextPage
       this.search()
